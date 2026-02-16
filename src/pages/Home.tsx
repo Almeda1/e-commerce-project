@@ -27,7 +27,7 @@ export default function Home() {
   const [heroLoaded, setHeroLoaded] = useState(false)
 
   /* Reveal refs for each section */
-  const trust   = useReveal()
+  // ...trust section removed (unused)
   const cats    = useReveal()
   const feat    = useReveal()
   const story   = useReveal()
