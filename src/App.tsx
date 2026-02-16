@@ -1,86 +1,73 @@
-import { useEffect } from 'react'; // <--- Import useEffect
+import { useEffect, Suspense, lazy } from 'react'; // <--- Added lazy & Suspense
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { supabase } from './lib/supabase'; // <--- Import your Supabase client
+import { supabase } from './lib/supabase';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { MainLayout, ScrollToTop } from './components';
 import AuthModal from './components/AuthModal';
 import ProtectedRoute from './components/ProtectedRoute';
-import { 
-  Home, 
-  ProductList, 
-  ProductDetails,
-  Cart,
-  Checkout,
-  Account,
-  Admin,
-  About 
-} from './pages'; 
 
-function AppRoutes() {
-  return (
-    <Routes>
-      {/* --- MAIN APP ROUTES WITH NAVBAR/LAYOUT --- */}
-      <Route element={<MainLayout />}>
-        
-        {/* Home / Landing Page */}
-        <Route path="/" element={<Home />} />
+// --- STEP 1: CHANGE THE IMPORTS ---
+// Instead of importing from './pages', we import each file individually.
+// NOTE: If your app crashes, check these file paths! 
+// (e.g., is it './pages/Home.jsx' or './pages/Home/index.jsx'?)
 
-        {/* Shop Pages */}
-        <Route path="/products" element={<ProductList />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
+const Home = lazy(() => import('./pages/Home'));
+const ProductList = lazy(() => import('./pages/ProductList'));
+const ProductDetails = lazy(() => import('./pages/ProductDetails'));
+const Cart = lazy(() => import('./pages/Cart'));
+const Checkout = lazy(() => import('./pages/Checkout'));
+const Account = lazy(() => import('./pages/Account'));
+const Admin = lazy(() => import('./pages/Admin'));
+const About = lazy(() => import('./pages/About'));
 
-        {/* About */}
-        <Route path="/about" element={<About />} />
-
-        {/* Transaction Pages */}
-        <Route path="/cart" element={<Cart />} />
-
-        {/* Protected Routes */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/admin" element={<Admin />} />
-        </Route>
-
-        {/* 404 Page */}
-        <Route
-          path="*"
-          element={
-            <div className="text-center py-20">
-              <span className="text-6xl mb-4 block">🔍</span>
-              <h2 className="text-2xl font-bold text-gray-900">Page Not Found</h2>
-              <p className="text-gray-600 mt-2">The page you're looking for doesn't exist.</p>
-            </div>
-          }
-        />
-      </Route>
-    </Routes>
-  );
-}
+// --- STEP 2: CREATE A "LOADING" SCREEN ---
+// This shows while the new page is downloading
+const LoadingFallback = () => (
+  <div className="flex items-center justify-center h-screen">
+    <p className="text-xl">Loading...</p>
+  </div>
+);
 
 function App() {
-  // <--- Supabase Connection Test
+  // Supabase connection check (kept from your original code)
   useEffect(() => {
-    console.log('Testing Supabase Connection...');
-    console.log('Supabase Client:', supabase);
-    
-    // Optional: Quick connectivity check
     supabase.from('products').select('count').limit(1)
       .then(({ error }) => {
-        if (error) console.warn('Supabase connected, but table fetch failed (likely just missing table):', error.message);
-        else console.log('Supabase Connection successful!');
+        if (!error) console.log('Supabase connected!');
       });
   }, []);
 
   return (
-    // Only keep BrowserRouter here if it is NOT in main.tsx
     <BrowserRouter>
       <ScrollToTop />
       <AuthProvider>
         <CartProvider>
           <AuthModal />
-          <AppRoutes />
+          
+          {/* --- STEP 3: WRAP ROUTES IN SUSPENSE --- */}
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route element={<MainLayout />}>
+                
+                <Route path="/" element={<Home />} />
+                <Route path="/products" element={<ProductList />} />
+                <Route path="/products/:id" element={<ProductDetails />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/cart" element={<Cart />} />
+
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/account" element={<Account />} />
+                  <Route path="/admin" element={<Admin />} />
+                </Route>
+
+                <Route path="*" element={<div>Page Not Found</div>} />
+              
+              </Route>
+            </Routes>
+          </Suspense>
+
         </CartProvider>
       </AuthProvider>
     </BrowserRouter>
