@@ -28,10 +28,19 @@ export default function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
+  // ⚡ HELPER: Add prefetch functions to links
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Shop', path: '/products' },
-    { name: 'About', path: '/about' },
+    { 
+      name: 'Shop', 
+      path: '/products', 
+      prefetch: () => import('../../pages/ProductList') // Background download Shop
+    },
+    { 
+      name: 'About', 
+      path: '/about',
+      prefetch: () => import('../../pages/About')       // Background download About
+    },
   ]
 
   const isActive = (path: string) => location.pathname === path
@@ -70,6 +79,8 @@ export default function Navbar() {
                 <Link
                   key={link.path}
                   to={link.path}
+                  // ⚡ PREFETCH ON HOVER
+                  onMouseEnter={link.prefetch}
                   className={`relative text-xs uppercase tracking-[0.15em] font-bold transition-colors duration-300 py-2 group ${
                     isActive(link.path) ? 'text-black' : 'text-gray-400 hover:text-black'
                   }`}
@@ -84,6 +95,8 @@ export default function Navbar() {
             <div className="flex gap-4 sm:gap-5 items-center">
               <button
                 onClick={() => user ? navigate('/account') : openAuthModal('signin')}
+                // ⚡ PREFETCH ACCOUNT: Only if user is logged in
+                onMouseEnter={() => user && import('../../pages/Account')}
                 className="text-black hover:text-gray-500 transition-colors relative"
                 aria-label={user ? 'My account' : 'Sign in'}
               >
@@ -92,7 +105,13 @@ export default function Navbar() {
                   <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full ring-2 ring-white" />
                 )}
               </button>
-              <Link to="/cart" className="relative text-black hover:text-gray-500 transition-colors">
+              
+              <Link 
+                to="/cart" 
+                // ⚡ PREFETCH CART
+                onMouseEnter={() => import('../../pages/Cart')}
+                className="relative text-black hover:text-gray-500 transition-colors"
+              >
                 <span className="material-symbols-outlined text-[26px]">shopping_bag</span>
                 <span className={`absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[9px] font-bold text-white ring-2 ring-white transition-transform ${cartCount > 0 ? 'scale-100' : 'scale-0'}`}>
                   {cartCount}
@@ -123,6 +142,8 @@ export default function Navbar() {
             <Link
               key={link.path}
               to={link.path}
+              // ⚡ PREFETCH ON TOUCH START (Better for mobile)
+              onTouchStart={link.prefetch}
               className={`flex items-center justify-between py-4 border-b border-gray-50 text-sm font-bold uppercase tracking-[0.2em] transition-colors ${
                 isActive(link.path) ? 'text-black' : 'text-gray-400 hover:text-black'
               }`}

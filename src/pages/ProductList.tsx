@@ -239,12 +239,6 @@ export default function ProductList() {
                   selected={selectedCategories}
                   onChange={toggleCategory}
                 />
-                <FilterGroup
-                  title="Movement"
-                  options={['Automatic', 'Manual', 'Quartz']}
-                  selected={[]}
-                  onChange={() => {}}
-                />
               </div>
 
               {selectedCategories.length > 0 && (
@@ -306,8 +300,8 @@ export default function ProductList() {
                           alt={product.name}
                           className="transition-transform duration-[1.2s] group-hover:scale-105"
                         />
-                        {/* Hover CTA */}
-                        <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400 z-20">
+                        {/* View Details Button - always visible for mobile */}
+                        <div className="absolute inset-x-0 bottom-0 p-3 z-20">
                           <span className="flex items-center justify-center gap-2 bg-white/95 backdrop-blur-sm text-black text-[10px] font-bold uppercase tracking-[0.15em] py-3">
                             View Details
                             <span className="material-symbols-outlined text-xs">east</span>

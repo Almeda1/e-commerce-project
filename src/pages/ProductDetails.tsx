@@ -67,6 +67,13 @@ export default function ProductDetails() {
   const handleAddToCart = () => {
     if (product) {
       addToCart(product)
+      
+      // ⚡ EVENT PREFETCH: START
+      // The user just added an item. There is a high chance they will check out soon.
+      // Start downloading the heavy Checkout page now so it's ready.
+      import('./Checkout') 
+      // ⚡ EVENT PREFETCH: END
+
       setAddedToCart(true)
       setTimeout(() => setAddedToCart(false), 2000)
     }
@@ -75,6 +82,12 @@ export default function ProductDetails() {
   const handleBuyNow = () => {
     if (product) {
       addToCart(product)
+      
+      // ⚡ EVENT PREFETCH: START
+      // Even though we are going to Cart first, we know where they are headed next.
+      import('./Checkout') 
+      // ⚡ EVENT PREFETCH: END
+
       navigate('/cart')
     }
   }

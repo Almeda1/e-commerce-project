@@ -27,13 +27,28 @@ export default function Home() {
   const [heroLoaded, setHeroLoaded] = useState(false)
 
   /* Reveal refs for each section */
-  // ...trust section removed (unused)
   const cats    = useReveal()
   const feat    = useReveal()
   const story   = useReveal()
   const news    = useReveal()
 
+  // ⚡ HELPER: Prefetch ALL main public pages
+  // This downloads the code for these pages in the background
+  const prefetchMainPages = () => {
+    const pages = [
+      import('./ProductList'),    // The Shop
+      import('./About'),          // The Brand
+      import('./Cart'),           // The Cart (likely destination)
+      import('./ProductDetails')  // The Product Layout (for when they click a watch)
+    ];
+
+    Promise.all(pages)
+      .then(() => console.log('⚡ All main pages prefetched in background'))
+      .catch((err) => console.log('Prefetch error (likely path mismatch)', err));
+  };
+
   useEffect(() => {
+    // 1. Fetch Supabase Data
     async function fetchFeatured() {
       const { data, error } = await supabase
         .from('products')
@@ -48,35 +63,39 @@ export default function Home() {
       }
     }
     fetchFeatured()
-    // Trigger hero entry after a tiny delay for smoothness
+    
+    // 2. Trigger Hero Animation
     const t = setTimeout(() => setHeroLoaded(true), 100)
-    return () => clearTimeout(t)
+
+    // ⚡ 3. METHOD 2: IDLE PREFETCHING (Aggressive)
+    // Wait 4 seconds for the Home page to settle, then download everything else.
+    const prefetchTimer = setTimeout(() => {
+        prefetchMainPages();
+    }, 4000);
+
+    return () => {
+        clearTimeout(t);
+        clearTimeout(prefetchTimer);
+    }
   }, [])
 
   return (
     <div className="bg-white">
 
-      {/* ═══════════════════ 1. HERO (FIXED) ═══════════════════ */}
+      {/* ═══════════════════ 1. HERO ═══════════════════ */}
       <section className="relative h-screen w-full overflow-hidden bg-black">
-        {/* Background Image with Slow Zoom */}
         <div className="absolute inset-0">
           <img
             src="/images/watch-b.jpeg"
             alt="Hero Background"
             className={`w-full h-full object-cover transition-transform duration-[20s] ease-out ${heroLoaded ? 'scale-110' : 'scale-100'}`}
           />
-          {/* Enhanced Gradient Overlay for Text Readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-90" />
         </div>
 
-        {/* Hero Content */}
-        <div 
-          className="absolute inset-0 pt-20 flex flex-col justify-center md:justify-end pb-8 sm:pb-20 px-6 sm:px-12 md:px-20 lg:px-24 z-10 overflow-hidden pointer-events-none"
-        >
-          {/* Content wrapper */}
+        <div className="absolute inset-0 pt-20 flex flex-col justify-center md:justify-end pb-8 sm:pb-20 px-6 sm:px-12 md:px-20 lg:px-24 z-10 overflow-hidden pointer-events-none">
           <div className="max-w-4xl w-full pointer-events-auto">
             
-            {/* Animated Eyebrow Text – placed before headline */}
             <div 
               className={`overflow-hidden transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: '150ms' }}
@@ -89,7 +108,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Main Heading */}
             <h1 
               className={`text-5xl md:text-7xl lg:text-[6rem] font-light text-white leading-[0.9] tracking-tight mb-8 transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: '350ms' }}
@@ -99,7 +117,6 @@ export default function Home() {
               Mastery
             </h1>
 
-            {/* Description & CTA Group */}
             <div 
               className={`flex flex-col md:flex-row gap-10 items-start md:items-end transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: '600ms' }}
@@ -110,8 +127,10 @@ export default function Home() {
               </p>
 
               <div className="flex flex-row gap-3 sm:gap-4">
+                {/* ⚡ METHOD 1: HOVER PREFETCH */}
                 <Link
                   to="/products"
+                  onMouseEnter={prefetchMainPages} 
                   className="group bg-white text-black px-5 sm:px-10 py-3.5 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 sm:gap-3"
                 >
                   Shop Now
@@ -119,6 +138,7 @@ export default function Home() {
                 </Link>
                 <Link
                   to="/about"
+                  onMouseEnter={prefetchMainPages}
                   className="px-5 sm:px-8 py-3.5 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-white border border-white/30 hover:bg-white/10 transition-colors backdrop-blur-sm text-center flex items-center justify-center"
                 >
                   The Brand
@@ -129,7 +149,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Minimal Scroll Indicator */}
         <div 
           className={`absolute bottom-8 right-8 md:right-16 flex items-center gap-4 transition-opacity duration-1000 ${heroLoaded ? 'opacity-100' : 'opacity-0'}`}
           style={{ transitionDelay: '1000ms' }}
@@ -176,7 +195,6 @@ export default function Home() {
       {/* ═══════════════════ 3. CATEGORIES ═══════════════════ */}
       <section ref={cats.ref} className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
           <div className={`flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-14 transition-all duration-700 ${cats.visible ? 'animate-fade-in-up' : 'opacity-0'}`}>
             <div>
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-gray-400 mb-3 block">Explore</span>
@@ -184,6 +202,7 @@ export default function Home() {
             </div>
             <Link
               to="/products"
+              onMouseEnter={prefetchMainPages}
               className="group flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-colors"
             >
               View All
@@ -191,7 +210,6 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Bento Grid */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-1 h-auto md:h-160">
             {/* Large — left */}
             <div
@@ -203,7 +221,7 @@ export default function Home() {
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
                 <span className="text-[10px] text-white/60 uppercase tracking-[0.3em] font-semibold">Premium</span>
                 <h3 className="text-3xl md:text-4xl font-light text-white mt-1 mb-4 tracking-tight">Luxury</h3>
-                <Link to="/products" className="inline-flex items-center gap-2 text-white text-xs font-bold uppercase tracking-[0.2em] border-b border-white/40 pb-1 hover:border-white transition-colors group/link">
+                <Link to="/products" onMouseEnter={prefetchMainPages} className="inline-flex items-center gap-2 text-white text-xs font-bold uppercase tracking-[0.2em] border-b border-white/40 pb-1 hover:border-white transition-colors group/link">
                   Explore
                   <span className="material-symbols-outlined text-sm transition-transform group-hover/link:translate-x-1">east</span>
                 </Link>
@@ -221,7 +239,7 @@ export default function Home() {
                 <div className="absolute bottom-0 left-0 right-0 p-8">
                   <span className="text-[10px] text-white/60 uppercase tracking-[0.3em] font-semibold">Active</span>
                   <h3 className="text-2xl font-light text-white mt-1 mb-3 tracking-tight">Sport</h3>
-                  <Link to="/products" className="inline-flex items-center gap-2 text-white text-xs font-bold uppercase tracking-[0.2em] border-b border-white/40 pb-1 hover:border-white transition-colors group/link">
+                  <Link to="/products" onMouseEnter={prefetchMainPages} className="inline-flex items-center gap-2 text-white text-xs font-bold uppercase tracking-[0.2em] border-b border-white/40 pb-1 hover:border-white transition-colors group/link">
                     Explore
                     <span className="material-symbols-outlined text-sm transition-transform group-hover/link:translate-x-1">east</span>
                   </Link>
@@ -236,7 +254,7 @@ export default function Home() {
                 <div className="absolute bottom-0 left-0 right-0 p-8">
                   <span className="text-[10px] text-white/60 uppercase tracking-[0.3em] font-semibold">Refined</span>
                   <h3 className="text-2xl font-light text-white mt-1 mb-3 tracking-tight">Minimalist</h3>
-                  <Link to="/products" className="inline-flex items-center gap-2 text-white text-xs font-bold uppercase tracking-[0.2em] border-b border-white/40 pb-1 hover:border-white transition-colors group/link">
+                  <Link to="/products" onMouseEnter={prefetchMainPages} className="inline-flex items-center gap-2 text-white text-xs font-bold uppercase tracking-[0.2em] border-b border-white/40 pb-1 hover:border-white transition-colors group/link">
                     Explore
                     <span className="material-symbols-outlined text-sm transition-transform group-hover/link:translate-x-1">east</span>
                   </Link>
@@ -250,7 +268,6 @@ export default function Home() {
       {/* ═══════════════════ 4. FEATURED PRODUCTS ═══════════════════ */}
       <section ref={feat.ref} className="py-24 lg:py-32 bg-stone-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
           <div className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-700 ${feat.visible ? 'animate-fade-in-up' : 'opacity-0'}`}>
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-gray-400 mb-3 block">Curated For You</span>
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 tracking-tight mb-5">Featured Timepieces</h2>
@@ -259,23 +276,23 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Product Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product, idx) => (
               <Link
                 key={product.id}
                 to={`/products/${product.id}`}
+                // Note: We are already prefetching the "ProductDetails" layout in the 'prefetchMainPages' function.
+                // We do NOT need to prefetch the specific data for each product here as that is too heavy.
+                onMouseEnter={prefetchMainPages}
                 className={`group block bg-white transition-all duration-700 hover:shadow-xl ${feat.visible ? 'animate-fade-in-up' : 'opacity-0'}`}
                 style={{ animationDelay: `${200 + idx * 150}ms` }}
               >
-                {/* Image */}
                 <div className="relative aspect-3/4 overflow-hidden bg-gray-100">
                   <img
                     src={product.image_url}
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105"
                   />
-                  {/* Hover overlay */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
                   <div className="absolute inset-x-0 bottom-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-400">
                     <span className="flex items-center justify-center gap-2 bg-white text-black text-xs font-bold uppercase tracking-[0.15em] py-3 hover:bg-black hover:text-white transition-colors">
@@ -284,8 +301,6 @@ export default function Home() {
                     </span>
                   </div>
                 </div>
-
-                {/* Info */}
                 <div className="p-5">
                   <span className="text-[10px] text-gray-400 uppercase tracking-[0.2em] font-semibold">{product.category}</span>
                   <h3 className="text-base font-medium text-gray-900 mt-1 group-hover:text-gray-600 transition-colors truncate">{product.name}</h3>
@@ -294,10 +309,10 @@ export default function Home() {
             ))}
           </div>
 
-          {/* CTA */}
           <div className={`mt-16 text-center transition-all duration-700 ${feat.visible ? 'animate-fade-in-up' : 'opacity-0'}`} style={{ animationDelay: '800ms' }}>
             <Link
               to="/products"
+              onMouseEnter={prefetchMainPages}
               className="group inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-black border-b-2 border-black pb-2 hover:text-gray-500 hover:border-gray-500 transition-colors"
             >
               Browse All Watches
@@ -307,7 +322,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════ 5. BRAND STORY SPLIT ═══════════════════ */}
+      {/* ═══════════════════ 5. BRAND STORY ═══════════════════ */}
       <section ref={story.ref} className="py-24 lg:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -320,7 +335,6 @@ export default function Home() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              {/* Floating stat card */}
               <div
                 className={`absolute -bottom-6 -right-6 md:right-0 bg-black text-white px-8 py-6 transition-all duration-700 ${story.visible ? 'animate-fade-in-up' : 'opacity-0'}`}
                 style={{ animationDelay: '500ms' }}
@@ -360,6 +374,7 @@ export default function Home() {
               </div>
               <Link
                 to="/products"
+                onMouseEnter={prefetchMainPages}
                 className="group inline-flex items-center gap-2 bg-black text-white px-8 py-4 text-xs font-bold uppercase tracking-[0.15em] hover:bg-gray-800 transition-colors"
               >
                 Discover More
