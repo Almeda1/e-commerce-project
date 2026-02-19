@@ -1,4 +1,4 @@
-import { FiShoppingBag, FiMinus, FiPlus, FiArrowLeft, FiLock } from 'react-icons/fi'
+import { FiShoppingBag, FiMinus, FiPlus, FiArrowLeft, FiLock, FiTrash2, FiArrowRight } from 'react-icons/fi'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 
@@ -16,9 +16,10 @@ export default function Cart() {
         <p className="text-gray-400 mb-8 font-light">It looks like you haven't added any timepieces yet.</p>
         <Link 
           to="/products"
-          className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] hover:bg-gray-800 transition-colors"
+          className="bg-black text-white px-8 py-3 text-xs font-bold uppercase tracking-[0.2em] hover:bg-gray-800 transition-colors flex items-center gap-2"
         >
-          Start Shopping
+          <span>Start Shopping</span>
+          <FiArrowRight className="text-sm" />
         </Link>
       </div>
     )
@@ -61,8 +62,9 @@ export default function Cart() {
                     </Link>
                     <button 
                       onClick={() => removeFromCart(item.id)}
-                      className="text-[10px] font-bold uppercase tracking-[0.1em] text-gray-400 hover:text-red-500 transition-colors text-left flex items-center gap-1 w-fit"
+                      className="text-[10px] font-bold uppercase tracking-[0.1em] text-gray-400 hover:text-red-500 transition-colors text-left flex items-center gap-2 w-fit"
                     >
+                      <FiTrash2 className="text-sm" />
                       Remove
                     </button>
                   </div>
@@ -70,7 +72,7 @@ export default function Cart() {
 
                 {/* Quantity */}
                 <div className="col-span-2 flex justify-center w-full md:w-auto">
-                   <div className="flex items-center border border-gray-200">
+                    <div className="flex items-center border border-gray-200">
                       <button 
                         onClick={() => decreaseQuantity?.(item.id)}
                         className="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors"
@@ -79,12 +81,12 @@ export default function Cart() {
                       </button>
                       <span className="w-10 text-center text-sm font-medium tabular-nums">{item.quantity}</span>
                       <button 
-                         onClick={() => addToCart(item)}
-                         className="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors"
+                          onClick={() => addToCart(item)}
+                          className="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors"
                       >
                         <FiPlus className="text-sm" />
                       </button>
-                   </div>
+                    </div>
                 </div>
 
                 {/* Price (Hidden on mobile) */}
@@ -135,8 +137,8 @@ export default function Cart() {
                   onClick={() => navigate('/checkout')}
                   className="w-full bg-black text-white py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
                 >
-                  Checkout
                   <FiLock className="text-sm" />
+                  Checkout
                 </button>
 
                 <div className="mt-8 pt-6 border-t border-gray-200">

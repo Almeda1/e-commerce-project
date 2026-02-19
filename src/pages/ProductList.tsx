@@ -1,4 +1,13 @@
-import { FiSliders, FiX, FiArrowRight, FiSearch } from 'react-icons/fi'
+import { 
+  FiSliders, 
+  FiX, 
+  FiArrowRight, 
+  FiSearch, 
+  FiCheck,       // Added for checkboxes
+  FiFilter,      // Added for sidebar header
+  FiChevronDown, // Added for custom select arrow
+  FiRefreshCw    // Added for empty state reset
+} from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
@@ -63,16 +72,9 @@ function FilterGroup({
               onChange={() => onChange(option)}
               className="peer sr-only"
             />
+            {/* Custom Checkbox using FiCheck */}
             <span className="w-3.5 h-3.5 border border-gray-300 peer-checked:border-black peer-checked:bg-black transition-all duration-200 flex items-center justify-center">
-              <svg
-                className="w-2 h-2 text-white opacity-0 peer-checked:opacity-100"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="3"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
+              <FiCheck className="w-2.5 h-2.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity" />
             </span>
             <span className="ml-3 text-xs text-gray-600 peer-checked:text-black group-hover/item:text-black transition-colors tracking-wide">
               {option}
@@ -185,22 +187,27 @@ export default function ProductList() {
             <FiSliders className="text-lg" />
             Filters
             {selectedCategories.length > 0 && (
-              <span className="ml-1 bg-black text-white text-[9px] w-4 h-4 flex items-center justify-center">
+              <span className="ml-1 bg-black text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full">
                 {selectedCategories.length}
               </span>
             )}
           </button>
+          
+          {/* Mobile Sort */}
           <div className="flex items-center gap-2">
             <span className="text-[10px] text-gray-400 uppercase tracking-[0.15em]">Sort</span>
-            <select
-              className="text-xs font-medium bg-transparent border-none focus:ring-0 cursor-pointer text-gray-700"
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-            >
-              <option value="newest">Newest</option>
-              <option value="price-asc">Price +</option>
-              <option value="price-desc">Price −</option>
-            </select>
+            <div className="relative">
+              <select
+                className="text-xs font-medium bg-transparent border-none focus:ring-0 cursor-pointer text-gray-700 pr-6 appearance-none"
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+              >
+                <option value="newest">Newest</option>
+                <option value="price-asc">Price +</option>
+                <option value="price-desc">Price −</option>
+              </select>
+              <FiChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none" />
+            </div>
           </div>
         </div>
 
@@ -216,8 +223,9 @@ export default function ProductList() {
             {selectedCategories.length > 0 && (
               <button
                 onClick={() => setSelectedCategories([])}
-                className="mt-3 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] hover:text-black"
+                className="mt-3 flex items-center gap-2 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] hover:text-black"
               >
+                <FiX className="text-sm" />
                 Clear All
               </button>
             )}
@@ -229,8 +237,9 @@ export default function ProductList() {
           {/* ── Sidebar ── */}
           <div className="hidden lg:block w-56 shrink-0">
             <div className="sticky top-24">
-              <div className="mb-6">
-                <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-1">Refine</h2>
+              <div className="mb-6 flex items-center gap-2">
+                <FiFilter className="text-gray-400 text-xs" />
+                <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400">Refine</h2>
               </div>
 
               <div className="divide-y divide-gray-100">
@@ -245,9 +254,9 @@ export default function ProductList() {
               {selectedCategories.length > 0 && (
                 <button
                   onClick={() => setSelectedCategories([])}
-                  className="mt-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] hover:text-black transition-colors flex items-center gap-1.5"
+                  className="mt-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] hover:text-black transition-colors flex items-center gap-2"
                 >
-                  <FiX className="text-xs" />
+                  <FiX className="text-sm" />
                   Clear All
                 </button>
               )}
@@ -264,15 +273,18 @@ export default function ProductList() {
               </p>
               <div className="flex items-center gap-3">
                 <span className="text-[10px] text-gray-400 uppercase tracking-[0.15em]">Sort by</span>
-                <select
-                  className="text-xs font-medium bg-transparent border-none focus:ring-0 cursor-pointer text-gray-700 hover:text-black transition-colors"
-                  value={sortOption}
-                  onChange={(e) => setSortOption(e.target.value)}
-                >
-                  <option value="newest">Newest</option>
-                  <option value="price-asc">Price: Low → High</option>
-                  <option value="price-desc">Price: High → Low</option>
-                </select>
+                <div className="relative group">
+                  <select
+                    className="text-xs font-medium bg-transparent border-none focus:ring-0 cursor-pointer text-gray-700 hover:text-black transition-colors pr-6 appearance-none py-1"
+                    value={sortOption}
+                    onChange={(e) => setSortOption(e.target.value)}
+                  >
+                    <option value="newest">Newest</option>
+                    <option value="price-asc">Price: Low → High</option>
+                    <option value="price-desc">Price: High → Low</option>
+                  </select>
+                  <FiChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 text-xs text-gray-400 group-hover:text-black transition-colors pointer-events-none" />
+                </div>
               </div>
             </div>
 
@@ -301,7 +313,7 @@ export default function ProductList() {
                           alt={product.name}
                           className="transition-transform duration-[1.2s] group-hover:scale-105"
                         />
-                        {/* View Details Button - always visible for mobile */}
+                        {/* View Details Button */}
                         <div className="absolute inset-x-0 bottom-0 p-3 z-20">
                           <span className="flex items-center justify-center gap-2 bg-white/95 backdrop-blur-sm text-black text-[10px] font-bold uppercase tracking-[0.15em] py-3">
                             View Details
@@ -327,12 +339,13 @@ export default function ProductList() {
             {/* Empty State */}
             {!loading && filteredProducts.length === 0 && (
               <div className="py-24 text-center">
-                <FiSearch className="text-4xl text-gray-200 mb-4 block" />
+                <FiSearch className="text-4xl text-gray-200 mb-4 mx-auto block" />
                 <p className="text-gray-400 text-sm font-light mb-4">No timepieces match your filters.</p>
                 <button
                   onClick={() => setSelectedCategories([])}
-                  className="text-[10px] font-bold uppercase tracking-[0.2em] text-black border-b border-black pb-0.5 hover:text-gray-500 hover:border-gray-500 transition-colors"
+                  className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-black border-b border-black pb-0.5 hover:text-gray-500 hover:border-gray-500 transition-colors"
                 >
+                  <FiRefreshCw className="text-xs" />
                   Clear all filters
                 </button>
               </div>

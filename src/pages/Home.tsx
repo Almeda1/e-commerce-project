@@ -1,4 +1,4 @@
-import { FiArrowRight, FiSearch } from 'react-icons/fi'
+import { FiArrowRight, FiSearch, FiTruck, FiShield, FiHeadphones, FiLock } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
@@ -34,13 +34,12 @@ export default function Home() {
   const news    = useReveal()
 
   // ⚡ HELPER: Prefetch ALL main public pages
-  // This downloads the code for these pages in the background
   const prefetchMainPages = () => {
     const pages = [
       import('./ProductList'),    // The Shop
       import('./About'),          // The Brand
-      import('./Cart'),           // The Cart (likely destination)
-      import('./ProductDetails')  // The Product Layout (for when they click a watch)
+      import('./Cart'),           // The Cart
+      import('./ProductDetails')  // The Product Layout
     ];
 
     Promise.all(pages)
@@ -69,7 +68,6 @@ export default function Home() {
     const t = setTimeout(() => setHeroLoaded(true), 100)
 
     // ⚡ 3. METHOD 2: IDLE PREFETCHING (Aggressive)
-    // Wait 4 seconds for the Home page to settle, then download everything else.
     const prefetchTimer = setTimeout(() => {
         prefetchMainPages();
     }, 4000);
@@ -104,7 +102,7 @@ export default function Home() {
               <div className="flex items-center gap-4 mb-5 md:mb-6">
                 <span className="h-[1px] w-10 md:w-12 bg-white/60"></span>
                 <span className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-white/90">
-                  Est. 2026 • Swiss Precision
+                  Est. 2024 • Swiss Precision
                 </span>
               </div>
             </div>
@@ -161,15 +159,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════ 2. TRUST STRIP ═══════════════════ */}
+      {/* ═══════════════════ 2. TRUST STRIP (FIXED ICONS) ═══════════════════ */}
       <div className="bg-black text-white relative z-20 -mt-1 py-4 sm:py-5 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
             {[
-              { icon: 'local_shipping', label: 'Global Delivery', desc: 'Complimentary shipping' },
-              { icon: 'verified_user',  label: '5-Year Warranty', desc: 'Certified authenticity' },
-              { icon: 'support_agent',  label: 'Concierge Service', desc: '24/7 expert support' },
-              { icon: 'lock',           label: 'Secure Payment', desc: 'Encrypted transactions' },
+              { icon: FiTruck,      label: 'Global Delivery',   desc: 'Complimentary shipping' },
+              { icon: FiShield,     label: '5-Year Warranty',   desc: 'Certified authenticity' },
+              { icon: FiHeadphones, label: 'Concierge Service', desc: '24/7 expert support' },
+              { icon: FiLock,       label: 'Secure Payment',    desc: 'Encrypted transactions' },
             ].map((t, i) => (
               <div
                 key={i}
@@ -177,7 +175,7 @@ export default function Home() {
                 style={{ transitionDelay: `${800 + i * 150}ms` }}
               >
                 <div className="p-2 sm:p-3 bg-white/5 rounded-full group-hover:bg-white/10 transition-colors shrink-0">
-                  {/* Replace {t.icon} with appropriate react-icon if possible */}
+                   <t.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-white transition-colors" />
                 </div>
                 <div className="min-w-0">
                   <h4 className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.1em] sm:tracking-[0.15em] text-white mb-0.5 sm:mb-1 truncate">
@@ -218,7 +216,7 @@ export default function Home() {
               style={{ transitionDelay: '200ms' }}
             >
               <img src="/images/luxury-collection.jpg" alt="Luxury" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" />
-              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
                 <span className="text-[10px] text-white/60 uppercase tracking-[0.3em] font-semibold">Premium</span>
                 <h3 className="text-3xl md:text-4xl font-light text-white mt-1 mb-4 tracking-tight">Luxury</h3>
@@ -282,8 +280,6 @@ export default function Home() {
               <Link
                 key={product.id}
                 to={`/products/${product.id}`}
-                // Note: We are already prefetching the "ProductDetails" layout in the 'prefetchMainPages' function.
-                // We do NOT need to prefetch the specific data for each product here as that is too heavy.
                 onMouseEnter={prefetchMainPages}
                 className={`group block bg-white transition-all duration-700 hover:shadow-xl ${feat.visible ? 'animate-fade-in-up' : 'opacity-0'}`}
                 style={{ animationDelay: `${200 + idx * 150}ms` }}
@@ -340,8 +336,8 @@ export default function Home() {
                 className={`absolute -bottom-6 -right-6 md:right-0 bg-black text-white px-8 py-6 transition-all duration-700 ${story.visible ? 'animate-fade-in-up' : 'opacity-0'}`}
                 style={{ animationDelay: '500ms' }}
               >
-                <p className="text-3xl font-light">15+</p>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-gray-400 mt-1">Years of Excellence</p>
+                <p className="text-3xl font-light">100%</p>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-gray-400 mt-1">Quality Assurance</p>
               </div>
             </div>
 
@@ -359,7 +355,7 @@ export default function Home() {
               </p>
               <div className="grid grid-cols-3 gap-8 mb-10 border-t border-gray-100 pt-8">
                 {[
-                  { num: '50k+', label: 'Collectors' },
+                  { num: '2k+', label: 'Collectors' }, 
                   { num: '4.9★',  label: 'Rating' },
                   { num: '100%', label: 'Authentic' },
                 ].map((s, i) => (

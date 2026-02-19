@@ -1,5 +1,15 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
+// Importing icons from 'react-icons/fi' for a clean, luxury aesthetic
+import { 
+  FiAward,       // For Quality/Diamond
+  FiPenTool,     // For Design/Palette
+  FiShield,      // For Integrity/Handshake
+  FiSun,         // For Sustainability/Eco
+  FiUsers,       // For Community/Groups
+  FiStar,        // For Excellence/Star
+  FiArrowRight   // For CTA Arrow
+} from 'react-icons/fi'
 
 /* ── Scroll-reveal hook (reused from Home) ── */
 function useReveal() {
@@ -127,40 +137,40 @@ export default function About() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
             {[
               {
-                icon: 'diamond',
+                icon: <FiAward className="text-2xl" />, // Replaces 'diamond'
                 title: 'Quality First',
                 desc: 'Every product undergoes rigorous selection. We accept nothing less than exceptional craftsmanship and premium materials.',
               },
               {
-                icon: 'palette',
+                icon: <FiPenTool className="text-2xl" />, // Replaces 'palette'
                 title: 'Timeless Design',
                 desc: 'We curate pieces that transcend seasonal trends — items designed to be cherished for years, not discarded after months.',
               },
               {
-                icon: 'handshake',
+                icon: <FiShield className="text-2xl" />, // Replaces 'handshake'
                 title: 'Integrity',
                 desc: 'Transparent pricing, honest descriptions, and a genuine commitment to your satisfaction drive everything we do.',
               },
               {
-                icon: 'eco',
+                icon: <FiSun className="text-2xl" />, // Replaces 'eco'
                 title: 'Sustainability',
                 desc: 'We prioritize partners who share our respect for the environment, favoring sustainable practices and responsible sourcing.',
               },
               {
-                icon: 'groups',
+                icon: <FiUsers className="text-2xl" />, // Replaces 'groups'
                 title: 'Community',
                 desc: 'Éclat is more than a marketplace — it\'s a community of individuals who appreciate the finer things, thoughtfully chosen.',
               },
               {
-                icon: 'star',
+                icon: <FiStar className="text-2xl" />, // Replaces 'star'
                 title: 'Excellence',
                 desc: 'From browsing to unboxing, every touchpoint is crafted with care. We believe the experience should match the product.',
               },
             ].map((value) => (
               <div key={value.title} className="bg-white p-6 sm:p-8 border border-gray-100 group hover:border-gray-200 transition-colors">
-                <span className="material-symbols-outlined text-2xl text-gray-300 group-hover:text-gray-900 transition-colors mb-5 block">
+                <div className="text-gray-300 group-hover:text-gray-900 transition-colors mb-5 block">
                   {value.icon}
-                </span>
+                </div>
                 <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest mb-3">
                   {value.title}
                 </h3>
@@ -227,7 +237,7 @@ export default function About() {
             className="inline-flex items-center gap-2 bg-white text-black px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white/90 transition-colors"
           >
             Shop Now
-            <span className="material-symbols-outlined text-base">arrow_forward</span>
+            <FiArrowRight className="text-base" />
           </Link>
         </div>
       </section>

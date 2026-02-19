@@ -1,4 +1,4 @@
-import { FiCheck, FiChevronRight, FiCreditCard, FiLock, FiArrowLeft, FiArrowRight, FiAlertCircle } from 'react-icons/fi'
+import { FiCheck, FiChevronRight, FiCreditCard, FiLock, FiArrowLeft, FiArrowRight, FiAlertCircle, FiEdit2, FiUser } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
@@ -183,14 +183,16 @@ export default function Checkout() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 to="/products"
-                className="bg-black text-white px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-gray-800 transition-colors"
+                className="bg-black text-white px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
               >
+                <FiArrowLeft className="text-sm" />
                 Continue Shopping
               </Link>
               <Link
                 to="/account"
-                className="border border-gray-200 text-gray-900 px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-gray-50 transition-colors"
+                className="border border-gray-200 text-gray-900 px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
               >
+                <FiUser className="text-sm" />
                 My Account
               </Link>
             </div>
@@ -329,8 +331,9 @@ export default function Checkout() {
                     </div>
                     <button
                       onClick={() => setStep('information')}
-                      className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-black transition-colors"
+                      className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-black transition-colors flex items-center gap-1"
                     >
+                      <FiEdit2 className="text-xs" />
                       Change
                     </button>
                   </div>
@@ -392,7 +395,8 @@ export default function Checkout() {
                         <p className="text-sm text-gray-900">{form.address}, {form.city}, {form.state}</p>
                       </div>
                       <button onClick={() => setStep('information')}
-                        className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-black transition-colors">
+                        className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-black transition-colors flex items-center gap-1">
+                        <FiEdit2 className="text-xs" />
                         Change
                       </button>
                     </div>
@@ -402,7 +406,8 @@ export default function Checkout() {
                         <p className="text-sm text-gray-900">{selectedShipping.label} · ₦{shippingCost.toLocaleString()}</p>
                       </div>
                       <button onClick={() => setStep('shipping')}
-                        className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-black transition-colors">
+                        className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-black transition-colors flex items-center gap-1">
+                        <FiEdit2 className="text-xs" />
                         Change
                       </button>
                     </div>

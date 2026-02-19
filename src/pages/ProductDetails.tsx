@@ -1,4 +1,19 @@
-import { FiChevronRight, FiArrowRight, FiSearch } from 'react-icons/fi'
+import { 
+  FiChevronRight, 
+  FiArrowRight, 
+  FiArrowLeft,
+  FiSearch, 
+  FiShoppingBag, 
+  FiCheck, 
+  FiTruck, 
+  FiShield, 
+  FiLock, 
+  FiPackage,
+  FiTag,
+  FiLayers,
+  FiAlignLeft,
+  FiHash
+} from 'react-icons/fi'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
@@ -70,8 +85,6 @@ export default function ProductDetails() {
       addToCart(product)
       
       // ⚡ EVENT PREFETCH: START
-      // The user just added an item. There is a high chance they will check out soon.
-      // Start downloading the heavy Checkout page now so it's ready.
       import('./Checkout') 
       // ⚡ EVENT PREFETCH: END
 
@@ -85,7 +98,6 @@ export default function ProductDetails() {
       addToCart(product)
       
       // ⚡ EVENT PREFETCH: START
-      // Even though we are going to Cart first, we know where they are headed next.
       import('./Checkout') 
       // ⚡ EVENT PREFETCH: END
 
@@ -93,14 +105,23 @@ export default function ProductDetails() {
     }
   }
 
-  /* ── Loading State ── */
+  /* ── Loading State (UPDATED) ── */
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin" />
-          <p className="text-[10px] text-gray-400 uppercase tracking-[0.3em]">Loading</p>
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center">
+        {/* Spinner Container */}
+        <div className="relative flex items-center justify-center mb-6">
+          {/* Static Outer Ring (Subtle) */}
+          <div className="w-12 h-12 rounded-full border border-stone-100" />
+          
+          {/* Spinning Inner Ring (Thin & Precise) */}
+          <div className="absolute w-12 h-12 rounded-full border-[1px] border-t-black border-r-transparent border-b-transparent border-l-transparent animate-spin" />
         </div>
+        
+        {/* Loading Text */}
+        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-300 animate-pulse">
+          Loading Timepiece
+        </p>
       </div>
     )
   }
@@ -114,8 +135,9 @@ export default function ProductDetails() {
         <p className="text-sm text-gray-400 mb-8">This timepiece may have been removed or doesn't exist.</p>
         <button
           onClick={() => navigate('/products')}
-          className="text-[10px] font-bold uppercase tracking-[0.2em] bg-black text-white px-8 py-3 hover:bg-gray-800 transition-colors"
+          className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] bg-black text-white px-8 py-3 hover:bg-gray-800 transition-colors"
         >
+          <FiArrowLeft className="text-sm" />
           Back to Collection
         </button>
       </div>
@@ -163,7 +185,8 @@ export default function ProductDetails() {
               />
               {/* Category tag */}
               <div className="absolute top-5 left-5 z-20">
-                <span className="bg-white/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-[0.2em] text-gray-900 px-3 py-1.5">
+                <span className="flex items-center gap-2 bg-white/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-[0.2em] text-gray-900 px-3 py-1.5">
+                  <FiTag className="text-xs" />
                   {product.category}
                 </span>
               </div>
@@ -177,7 +200,8 @@ export default function ProductDetails() {
           >
             {/* Name & Price */}
             <div className="mb-8 pb-8 border-b border-gray-100">
-              <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.25em] block mb-3">
+              <span className="flex items-center gap-2 text-[10px] font-semibold text-gray-400 uppercase tracking-[0.25em] mb-3">
+                <FiTag className="text-xs" />
                 {product.category}
               </span>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 tracking-tight leading-tight mb-6">
@@ -191,21 +215,28 @@ export default function ProductDetails() {
             {/* Description */}
             {product.description && (
               <div className="mb-8 pb-8 border-b border-gray-100">
-                <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-4">Description</h3>
+                <h3 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-4">
+                  <FiAlignLeft className="text-base" />
+                  Description
+                </h3>
                 <p className="text-sm text-gray-600 font-light leading-relaxed">{product.description}</p>
               </div>
             )}
 
-            {/* Tags */}
+            {/* Tags / Specifications */}
             {product.tags && product.tags.length > 0 && (
               <div className="mb-8 pb-8 border-b border-gray-100">
-                <h3 className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-4">Specifications</h3>
+                <h3 className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-4">
+                  <FiLayers className="text-base" />
+                  Specifications
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {product.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gray-600 border border-gray-200 px-3 py-1.5"
+                      className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-gray-600 border border-gray-200 px-3 py-1.5"
                     >
+                      <FiHash className="text-xs text-gray-400" />
                       {tag}
                     </span>
                   ))}
@@ -223,9 +254,7 @@ export default function ProductDetails() {
                     : 'bg-black text-white hover:bg-gray-800'
                 }`}
               >
-                {/* Icon placeholder, replace with appropriate icon if needed */}
-                  {addedToCart ? 'check' : 'shopping_bag'}
-                </span>
+                {addedToCart ? <FiCheck className="text-base" /> : <FiShoppingBag className="text-base" />}
                 {addedToCart ? 'Added to Cart' : 'Add to Cart'}
               </button>
               <button
@@ -240,13 +269,13 @@ export default function ProductDetails() {
             {/* Trust features */}
             <div className="space-y-4 pt-2">
               {[
-                { icon: 'local_shipping', text: 'Free delivery worldwide' },
-                { icon: 'verified_user', text: '2-year international warranty' },
-                { icon: 'lock', text: 'Secure, encrypted checkout' },
-                { icon: 'package_2', text: 'Premium insured packaging' },
+                { icon: <FiTruck className="text-base" />, text: 'Free delivery worldwide' },
+                { icon: <FiShield className="text-base" />, text: '2-year international warranty' },
+                { icon: <FiLock className="text-base" />, text: 'Secure, encrypted checkout' },
+                { icon: <FiPackage className="text-base" />, text: 'Premium insured packaging' },
               ].map((f, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  {/* Replace {f.icon} with appropriate react-icon if possible */}
+                  <span className="text-gray-400">{f.icon}</span>
                   <span className="text-xs text-gray-500 font-light">{f.text}</span>
                 </div>
               ))}

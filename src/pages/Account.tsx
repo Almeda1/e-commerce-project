@@ -1,4 +1,20 @@
-import { FiUser, FiMail, FiCheckCircle, FiCalendar, FiAward, FiChevronDown } from 'react-icons/fi'
+import { 
+  FiUser, 
+  FiMail, 
+  FiCheckCircle, 
+  FiCalendar, 
+  FiAward, 
+  FiChevronDown,
+  FiUsers,       // Replaces 'wc' (Gender)
+  FiGift,        // Replaces 'cake' (Birthday)
+  FiPhone,       // Replaces 'call' (Phone)
+  FiShield,      // Replaces 'shield_lock' (Security)
+  FiAlertCircle, // Replaces 'error'
+  FiEye,         // Replaces 'visibility'
+  FiEyeOff,      // Replaces 'visibility_off'
+  FiTrash2,      // Replaces 'delete_forever'
+  FiLogOut       // Replaces 'logout'
+} from 'react-icons/fi'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
@@ -168,8 +184,6 @@ export default function Account() {
                 <h2 className="text-sm sm:text-base font-bold text-gray-900 tracking-tight">Profile Details</h2>
               </div>
               <FiChevronDown className={`text-xl text-gray-300 transition-transform duration-300 ${profileOpen ? 'rotate-180' : ''}`} />
-                expand_more
-              </span>
             </button>
 
             {/* Dropdown Body */}
@@ -262,7 +276,7 @@ export default function Account() {
                       {meta.gender && (
                         <div className="border border-gray-50 p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="material-symbols-outlined text-base text-gray-300">wc</span>
+                            <FiUsers className="text-base text-gray-300" />
                             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-300">Gender</p>
                           </div>
                           <p className="text-sm text-gray-900 capitalize">{meta.gender}</p>
@@ -272,7 +286,7 @@ export default function Account() {
                       {meta.date_of_birth && (
                         <div className="border border-gray-50 p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="material-symbols-outlined text-base text-gray-300">cake</span>
+                            <FiGift className="text-base text-gray-300" />
                             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-300">Date of Birth</p>
                           </div>
                           <p className="text-sm text-gray-900">
@@ -284,7 +298,7 @@ export default function Account() {
                       {meta.phone_number && (
                         <div className="border border-gray-50 p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="material-symbols-outlined text-base text-gray-300">call</span>
+                            <FiPhone className="text-base text-gray-300" />
                             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-300">Phone</p>
                           </div>
                           <p className="text-sm text-gray-900">{meta.phone_number}</p>
@@ -299,13 +313,13 @@ export default function Account() {
                   <form onSubmit={handleSaveProfile} className="p-5 sm:p-8">
                     {profileSuccess && (
                       <div className="mb-6 p-3 bg-green-50 border border-green-100 text-sm text-green-700 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-base">check_circle</span>
+                        <FiCheckCircle className="text-base" />
                         Profile updated successfully
                       </div>
                     )}
                     {profileError && (
                       <div className="mb-6 p-3 bg-red-50 border border-red-100 text-sm text-red-600 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-base">error</span>
+                        <FiAlertCircle className="text-base" />
                         {profileError}
                       </div>
                     )}
@@ -420,12 +434,10 @@ export default function Account() {
               className="w-full flex items-center justify-between px-5 sm:px-8 py-5 sm:py-6 text-left group"
             >
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-xl text-gray-400 group-hover:text-gray-600 transition-colors">shield_lock</span>
+                <FiShield className="text-xl text-gray-400 group-hover:text-gray-600 transition-colors" />
                 <h2 className="text-sm sm:text-base font-bold text-gray-900 tracking-tight">Security Settings</h2>
               </div>
-              <span className={`material-symbols-outlined text-xl text-gray-300 transition-transform duration-300 ${securityOpen ? 'rotate-180' : ''}`}>
-                expand_more
-              </span>
+              <FiChevronDown className={`text-xl text-gray-300 transition-transform duration-300 ${securityOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {/* Dropdown Body */}
@@ -462,13 +474,13 @@ export default function Account() {
 
                     {passwordSuccess && (
                       <div className="mb-4 p-3 bg-green-50 border border-green-100 text-sm text-green-700 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-base">check_circle</span>
+                        <FiCheckCircle className="text-base" />
                         Password updated successfully
                       </div>
                     )}
                     {passwordError && (
                       <div className="mb-4 p-3 bg-red-50 border border-red-100 text-sm text-red-600 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-base">error</span>
+                        <FiAlertCircle className="text-base" />
                         {passwordError}
                       </div>
                     )}
@@ -493,9 +505,11 @@ export default function Account() {
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                             tabIndex={-1}
                           >
-                            <span className="material-symbols-outlined text-lg">
-                              {showPassword ? 'visibility_off' : 'visibility'}
-                            </span>
+                            {showPassword ? (
+                                <FiEyeOff className="text-lg" />
+                            ) : (
+                                <FiEye className="text-lg" />
+                            )}
                           </button>
                         </div>
                       </div>
@@ -519,9 +533,11 @@ export default function Account() {
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                             tabIndex={-1}
                           >
-                            <span className="material-symbols-outlined text-lg">
-                              {showPassword ? 'visibility_off' : 'visibility'}
-                            </span>
+                            {showPassword ? (
+                                <FiEyeOff className="text-lg" />
+                            ) : (
+                                <FiEye className="text-lg" />
+                            )}
                           </button>
                         </div>
                       </div>
@@ -566,7 +582,7 @@ export default function Account() {
                         onClick={() => setShowDeleteConfirm(true)}
                         className="flex items-center gap-2 px-6 py-2.5 border border-red-200 text-[11px] font-bold uppercase tracking-[0.2em] text-red-500 hover:bg-red-50 hover:border-red-300 transition-all"
                       >
-                        <span className="material-symbols-outlined text-base">delete_forever</span>
+                        <FiTrash2 className="text-base" />
                         Delete My Account
                       </button>
                     ) : (
@@ -616,7 +632,7 @@ export default function Account() {
             onClick={handleSignOut}
             className="w-full flex items-center justify-center gap-2 py-3.5 text-[11px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-red-500 transition-colors border border-gray-200 bg-white"
           >
-            <span className="material-symbols-outlined text-lg">logout</span>
+            <FiLogOut className="text-lg" />
             Sign Out
           </button>
         </div>
