@@ -48,7 +48,7 @@ function AppRoutes() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       
-      <main className="flex-grow">
+      <main className="grow">
         {/* Suspense keeps the old page visible or shows a spinner while the new one loads */}
         <Suspense fallback={<PageLoader />}>
           <Routes location={location}>

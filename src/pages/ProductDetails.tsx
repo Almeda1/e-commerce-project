@@ -268,17 +268,19 @@ export default function ProductDetails() {
               </button>
             </div>
 
-            {/* Trust features */}
-            <div className="space-y-4 pt-2">
+            {/* ⭐ UPDATED: Vertical list with homepage trust strip text */}
+            <div className="space-y-4 pt-2 border-t border-gray-100">
               {[
-                { icon: <FiTruck className="text-base" />, text: 'Free delivery worldwide' },
-                { icon: <FiShield className="text-base" />, text: '2-year international warranty' },
-                { icon: <FiLock className="text-base" />, text: 'Secure, encrypted checkout' },
-                { icon: <FiPackage className="text-base" />, text: 'Premium insured packaging' },
+                { icon: <FiTruck className="text-base" />, label: 'Global Delivery', desc: 'Complimentary shipping' },
+                { icon: <FiShield className="text-base" />, label: '5-Year Warranty', desc: 'Certified authenticity' },
+                { icon: <FiLock className="text-base" />, label: 'Secure Payment', desc: 'Encrypted transactions' },
+                { icon: <FiPackage className="text-base" />, label: 'Premium Packaging', desc: 'Insured delivery' },
               ].map((f, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <span className="text-gray-400">{f.icon}</span>
-                  <span className="text-xs text-gray-500 font-light">{f.text}</span>
+                  <span className="text-gray-400 w-5">{f.icon}</span>
+                  <span className="text-xs text-gray-500 font-light">
+                    <span className="font-medium text-gray-700">{f.label}</span> • {f.desc}
+                  </span>
                 </div>
               ))}
             </div>
