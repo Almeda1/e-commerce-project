@@ -1,3 +1,4 @@
+import { FiUser, FiMail, FiCheckCircle, FiCalendar, FiAward, FiChevronDown } from 'react-icons/fi'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
@@ -163,10 +164,10 @@ export default function Account() {
               className="w-full flex items-center justify-between px-5 sm:px-8 py-5 sm:py-6 text-left group"
             >
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-xl text-gray-400 group-hover:text-gray-600 transition-colors">person</span>
+                <FiUser className="text-xl text-gray-400 group-hover:text-gray-600 transition-colors" />
                 <h2 className="text-sm sm:text-base font-bold text-gray-900 tracking-tight">Profile Details</h2>
               </div>
-              <span className={`material-symbols-outlined text-xl text-gray-300 transition-transform duration-300 ${profileOpen ? 'rotate-180' : ''}`}>
+              <FiChevronDown className={`text-xl text-gray-300 transition-transform duration-300 ${profileOpen ? 'rotate-180' : ''}`} />
                 expand_more
               </span>
             </button>
@@ -228,7 +229,7 @@ export default function Account() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 pt-6 border-t border-gray-50">
                       <div className="border border-gray-50 p-4">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="material-symbols-outlined text-base text-gray-300">mail</span>
+                          <FiMail className="text-base text-gray-300" />
                           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-300">Email</p>
                         </div>
                         <p className="text-sm text-gray-900 truncate">{user?.email}</p>
@@ -236,7 +237,7 @@ export default function Account() {
 
                       <div className="border border-gray-50 p-4">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="material-symbols-outlined text-base text-gray-300">verified_user</span>
+                          <FiCheckCircle className="text-base text-gray-300" />
                           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-300">Email Status</p>
                         </div>
                         <p className="text-sm text-gray-900">{user?.email_confirmed_at ? 'Confirmed' : 'Pending'}</p>
@@ -244,7 +245,7 @@ export default function Account() {
 
                       <div className="border border-gray-50 p-4">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="material-symbols-outlined text-base text-gray-300">calendar_today</span>
+                          <FiCalendar className="text-base text-gray-300" />
                           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-300">Member Since</p>
                         </div>
                         <p className="text-sm text-gray-900">{createdAt}</p>
@@ -252,7 +253,7 @@ export default function Account() {
 
                       <div className="border border-gray-50 p-4">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="material-symbols-outlined text-base text-gray-300">badge</span>
+                          <FiAward className="text-base text-gray-300" />
                           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-300">User ID</p>
                         </div>
                         <p className="text-sm text-gray-900 font-mono truncate">{user?.id}</p>

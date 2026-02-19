@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { FiMapPin, FiMail, FiPhone } from 'react-icons/fi'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -15,7 +16,7 @@ export default function Footer() {
             <Link to="/" className="inline-block mb-6">
               <img src="/images/eclat-logo.png" alt="Eclat Logo" className="h-7 w-auto brightness-0 invert" />
             </Link>
-            <p className="text-white/40 text-sm leading-relaxed mb-8 max-w-[260px]">
+            <p className="text-white/40 text-sm leading-relaxed mb-8 max-w-65">
               Curating timeless pieces for those who appreciate the art of refined living.
             </p>
             <div className="flex gap-3">
@@ -31,7 +32,7 @@ export default function Footer() {
                   aria-label={social.name}
                   className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:border-white/50 hover:bg-white/5 transition-all duration-300 group"
                 >
-                  <svg className="w-[14px] h-[14px] fill-white/40 group-hover:fill-white transition-colors duration-300" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 fill-white/40 group-hover:fill-white transition-colors duration-300" viewBox="0 0 24 24">
                     <path d={social.icon} />
                   </svg>
                 </a>
@@ -104,15 +105,15 @@ export default function Footer() {
             <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/60 mb-6">Get in Touch</h3>
             <ul className="space-y-4 text-sm text-white/35">
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-base text-white/25 mt-0.5">location_on</span>
+                <FiMapPin className="text-base text-white/25 mt-0.5" />
                 <span>12 Victoria Island,<br />Lagos, Nigeria</span>
               </li>
               <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-base text-white/25">mail</span>
+                <FiMail className="text-base text-white/25" />
                 <a href="mailto:hello@eclat.com" className="hover:text-white transition-colors duration-300">hello@eclat.com</a>
               </li>
               <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-base text-white/25">call</span>
+                <FiPhone className="text-base text-white/25" />
                 <a href="tel:+2341234567890" className="hover:text-white transition-colors duration-300">+234 123 456 7890</a>
               </li>
             </ul>
@@ -121,7 +122,7 @@ export default function Footer() {
       </div>
 
       {/* ── Bottom Bar ── */}
-      <div className="border-t border-white/[0.06]">
+      <div className="border-t border-white/6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-white/25 tracking-wide">
             &copy; {currentYear} Éclat. All rights reserved.

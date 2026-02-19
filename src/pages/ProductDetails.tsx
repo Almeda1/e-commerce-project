@@ -1,3 +1,4 @@
+import { FiChevronRight, FiArrowRight, FiSearch } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
@@ -108,7 +109,7 @@ export default function ProductDetails() {
   if (!product) {
     return (
       <div className="min-h-screen bg-white flex flex-col items-center justify-center text-center p-4">
-        <span className="material-symbols-outlined text-5xl text-gray-200 mb-6">search_off</span>
+        <FiSearch className="text-5xl text-gray-200 mb-6" />
         <h2 className="text-2xl font-light text-gray-900 mb-2">Product not found</h2>
         <p className="text-sm text-gray-400 mb-8">This timepiece may have been removed or doesn't exist.</p>
         <button
@@ -129,9 +130,9 @@ export default function ProductDetails() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 pt-20">
           <nav className="flex items-center gap-2 text-[10px] text-gray-400 uppercase tracking-[0.2em]">
             <Link to="/" className="hover:text-black transition-colors">Home</Link>
-            <span className="material-symbols-outlined text-[10px]">chevron_right</span>
+            <FiChevronRight className="text-[10px]" />
             <Link to="/products" className="hover:text-black transition-colors">Collection</Link>
-            <span className="material-symbols-outlined text-[10px]">chevron_right</span>
+            <FiChevronRight className="text-[10px]" />
             <span className="text-gray-900 font-semibold truncate max-w-48">{product.name}</span>
           </nav>
         </div>
@@ -222,7 +223,7 @@ export default function ProductDetails() {
                     : 'bg-black text-white hover:bg-gray-800'
                 }`}
               >
-                <span className="material-symbols-outlined text-base">
+                {/* Icon placeholder, replace with appropriate icon if needed */}
                   {addedToCart ? 'check' : 'shopping_bag'}
                 </span>
                 {addedToCart ? 'Added to Cart' : 'Add to Cart'}
@@ -232,7 +233,7 @@ export default function ProductDetails() {
                 className="flex-1 flex items-center justify-center gap-2 border border-black text-black px-8 py-4 text-xs font-bold uppercase tracking-[0.15em] hover:bg-black hover:text-white transition-colors"
               >
                 Buy Now
-                <span className="material-symbols-outlined text-base">east</span>
+                <FiArrowRight className="text-base" />
               </button>
             </div>
 
@@ -245,7 +246,7 @@ export default function ProductDetails() {
                 { icon: 'package_2', text: 'Premium insured packaging' },
               ].map((f, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-base text-gray-300">{f.icon}</span>
+                  {/* Replace {f.icon} with appropriate react-icon if possible */}
                   <span className="text-xs text-gray-500 font-light">{f.text}</span>
                 </div>
               ))}
@@ -268,7 +269,7 @@ export default function ProductDetails() {
                 className="group hidden sm:flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-colors"
               >
                 View All
-                <span className="material-symbols-outlined text-xs transition-transform group-hover:translate-x-0.5">east</span>
+                <FiArrowRight className="text-xs transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
 
@@ -284,7 +285,7 @@ export default function ProductDetails() {
                     <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400 z-20">
                       <span className="flex items-center justify-center gap-2 bg-white/95 backdrop-blur-sm text-black text-[10px] font-bold uppercase tracking-[0.15em] py-2.5">
                         View
-                        <span className="material-symbols-outlined text-xs">east</span>
+                        <FiArrowRight className="text-xs" />
                       </span>
                     </div>
                   </div>

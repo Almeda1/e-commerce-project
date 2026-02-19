@@ -1,3 +1,4 @@
+import { FiShoppingBag, FiMinus, FiPlus, FiArrowLeft, FiLock } from 'react-icons/fi'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 
@@ -10,7 +11,7 @@ export default function Cart() {
   if (cart.length === 0) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center bg-white px-4">
-        <span className="material-symbols-outlined text-6xl text-gray-200 mb-6">shopping_bag</span>
+        <FiShoppingBag className="text-6xl text-gray-200 mb-6" />
         <h1 className="text-3xl font-light text-gray-900 mb-4">Your bag is empty</h1>
         <p className="text-gray-400 mb-8 font-light">It looks like you haven't added any timepieces yet.</p>
         <Link 
@@ -74,14 +75,14 @@ export default function Cart() {
                         onClick={() => decreaseQuantity?.(item.id)}
                         className="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors"
                       >
-                        <span className="material-symbols-outlined text-sm">remove</span>
+                        <FiMinus className="text-sm" />
                       </button>
                       <span className="w-10 text-center text-sm font-medium tabular-nums">{item.quantity}</span>
                       <button 
                          onClick={() => addToCart(item)}
                          className="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors"
                       >
-                        <span className="material-symbols-outlined text-sm">add</span>
+                        <FiPlus className="text-sm" />
                       </button>
                    </div>
                 </div>
@@ -103,7 +104,7 @@ export default function Cart() {
 
             <div className="pt-6">
               <Link to="/products" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] hover:text-gray-600 transition-colors">
-                <span className="material-symbols-outlined text-sm">west</span>
+                <FiArrowLeft className="text-sm" />
                 Continue Shopping
               </Link>
             </div>
@@ -135,7 +136,7 @@ export default function Cart() {
                   className="w-full bg-black text-white py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
                 >
                   Checkout
-                  <span className="material-symbols-outlined text-sm">lock</span>
+                  <FiLock className="text-sm" />
                 </button>
 
                 <div className="mt-8 pt-6 border-t border-gray-200">

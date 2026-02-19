@@ -1,3 +1,4 @@
+import { FiCheck, FiChevronRight, FiCreditCard, FiLock, FiArrowLeft, FiArrowRight, FiAlertCircle } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
@@ -144,7 +145,7 @@ export default function Checkout() {
         <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
           <div className="bg-white border border-gray-100 p-8 sm:p-14">
             <div className="w-16 h-16 rounded-full bg-green-50 border border-green-100 flex items-center justify-center mx-auto mb-6">
-              <span className="material-symbols-outlined text-3xl text-green-600">check</span>
+              <FiCheck className="text-3xl text-green-600" />
             </div>
 
             <h1 className="font-serif text-2xl sm:text-3xl text-gray-900 mb-2">
@@ -211,7 +212,7 @@ export default function Checkout() {
           <Link to="/cart" className="hover:text-gray-600 transition-colors">Cart</Link>
           {steps.map((s, i) => (
             <span key={s.id} className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-xs">chevron_right</span>
+              <FiChevronRight className="text-xs" />
               <span className={step === s.id ? 'text-black font-bold' : i < currentStepIndex ? 'text-gray-600' : ''}>
                 {s.label}
               </span>
@@ -240,7 +241,7 @@ export default function Checkout() {
                     }`}
                   >
                     {i < currentStepIndex ? (
-                      <span className="material-symbols-outlined text-sm">check</span>
+                      <FiCheck className="text-sm" />
                     ) : (
                       s.num
                     )}
@@ -410,7 +411,7 @@ export default function Checkout() {
                   {/* Card Form */}
                   <div className="border-t border-gray-100 pt-6">
                     <div className="flex items-center gap-2 mb-5">
-                      <span className="material-symbols-outlined text-base text-gray-300">credit_card</span>
+                      <FiCreditCard className="text-base text-gray-300" />
                       <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400">Credit / Debit Card</p>
                     </div>
 
@@ -432,7 +433,7 @@ export default function Checkout() {
                   </div>
 
                   <div className="flex items-start gap-2 mt-6 p-3 bg-stone-50 border border-gray-100">
-                    <span className="material-symbols-outlined text-base text-gray-300 mt-0.5">lock</span>
+                    <FiLock className="text-base text-gray-300 mt-0.5" />
                     <p className="text-xs text-gray-400">
                       Your payment information is encrypted and secure. We never store your full card details.
                     </p>
@@ -452,7 +453,7 @@ export default function Checkout() {
                 }}
                 className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-gray-400 hover:text-gray-900 transition-colors"
               >
-                <span className="material-symbols-outlined text-sm">west</span>
+                <FiArrowLeft className="text-sm" />
                 {step === 'information' ? 'Back to Cart' : 'Back'}
               </button>
 
@@ -469,12 +470,12 @@ export default function Checkout() {
                 ) : step === 'payment' ? (
                   <>
                     Place Order · ₦{total.toLocaleString()}
-                    <span className="material-symbols-outlined text-sm">lock</span>
+                    <FiLock className="text-sm" />
                   </>
                 ) : (
                   <>
                     Continue
-                    <span className="material-symbols-outlined text-sm">east</span>
+                    <FiArrowRight className="text-sm" />
                   </>
                 )}
               </button>
@@ -600,7 +601,7 @@ function InputField({
       />
       {error && (
         <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
-          <span className="material-symbols-outlined text-xs">error</span>
+          <FiAlertCircle className="text-xs" />
           {error}
         </p>
       )}

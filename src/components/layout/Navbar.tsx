@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useCart } from '../../context/CartContext'
 import { useAuth } from '../../context/AuthContext'
+import { FiMenu, FiX, FiUser, FiShoppingBag, FiLogOut } from 'react-icons/fi'
 
 export default function Navbar() {
   const location = useLocation()
@@ -64,9 +65,11 @@ export default function Navbar() {
                 className="md:hidden p-1.5 -ml-1.5 rounded-md hover:bg-black/5 transition-colors"
                 aria-label="Toggle menu"
               >
-                <span className="material-symbols-outlined text-2xl text-black">
-                  {mobileOpen ? 'close' : 'menu'}
-                </span>
+                {mobileOpen ? (
+                  <FiX className="text-2xl text-black" />
+                ) : (
+                  <FiMenu className="text-2xl text-black" />
+                )}
               </button>
               <Link to="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
                 <img src="/images/eclat-logo.png" alt="Eclat Logo" className="h-8 w-auto object-contain" />
@@ -100,7 +103,7 @@ export default function Navbar() {
                 className="text-black hover:text-gray-500 transition-colors relative"
                 aria-label={user ? 'My account' : 'Sign in'}
               >
-                <span className="material-symbols-outlined text-[26px]">person</span>
+                <FiUser className="text-[26px]" />
                 {user && (
                   <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full ring-2 ring-white" />
                 )}
@@ -112,7 +115,7 @@ export default function Navbar() {
                 onMouseEnter={() => import('../../pages/Cart')}
                 className="relative text-black hover:text-gray-500 transition-colors"
               >
-                <span className="material-symbols-outlined text-[26px]">shopping_bag</span>
+                <FiShoppingBag className="text-[26px]" />
                 <span className={`absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-[9px] font-bold text-white ring-2 ring-white transition-transform ${cartCount > 0 ? 'scale-100' : 'scale-0'}`}>
                   {cartCount}
                 </span>
@@ -159,7 +162,7 @@ export default function Navbar() {
               onClick={() => { signOut(); setMobileOpen(false) }}
               className="flex items-center gap-3 py-4 text-sm font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-red-500 transition-colors w-full"
             >
-              <span className="material-symbols-outlined text-lg">logout</span>
+              <FiLogOut className="text-lg" />
               Sign Out
             </button>
           )}

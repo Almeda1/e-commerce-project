@@ -1,3 +1,4 @@
+import { FiSliders, FiX, FiArrowRight, FiSearch } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
@@ -181,7 +182,7 @@ export default function ProductList() {
             onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
             className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-gray-700"
           >
-            <span className="material-symbols-outlined text-lg">tune</span>
+            <FiSliders className="text-lg" />
             Filters
             {selectedCategories.length > 0 && (
               <span className="ml-1 bg-black text-white text-[9px] w-4 h-4 flex items-center justify-center">
@@ -226,7 +227,7 @@ export default function ProductList() {
         <div className="flex gap-12 lg:gap-16">
 
           {/* ── Sidebar ── */}
-          <div className="hidden lg:block w-56 flex-shrink-0">
+          <div className="hidden lg:block w-56 shrink-0">
             <div className="sticky top-24">
               <div className="mb-6">
                 <h2 className="text-[10px] font-bold uppercase tracking-[0.25em] text-gray-400 mb-1">Refine</h2>
@@ -246,7 +247,7 @@ export default function ProductList() {
                   onClick={() => setSelectedCategories([])}
                   className="mt-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] hover:text-black transition-colors flex items-center gap-1.5"
                 >
-                  <span className="material-symbols-outlined text-xs">close</span>
+                  <FiX className="text-xs" />
                   Clear All
                 </button>
               )}
@@ -304,7 +305,7 @@ export default function ProductList() {
                         <div className="absolute inset-x-0 bottom-0 p-3 z-20">
                           <span className="flex items-center justify-center gap-2 bg-white/95 backdrop-blur-sm text-black text-[10px] font-bold uppercase tracking-[0.15em] py-3">
                             View Details
-                            <span className="material-symbols-outlined text-xs">east</span>
+                            <FiArrowRight className="text-xs" />
                           </span>
                         </div>
                       </div>
@@ -326,7 +327,7 @@ export default function ProductList() {
             {/* Empty State */}
             {!loading && filteredProducts.length === 0 && (
               <div className="py-24 text-center">
-                <span className="material-symbols-outlined text-4xl text-gray-200 mb-4 block">search_off</span>
+                <FiSearch className="text-4xl text-gray-200 mb-4 block" />
                 <p className="text-gray-400 text-sm font-light mb-4">No timepieces match your filters.</p>
                 <button
                   onClick={() => setSelectedCategories([])}

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { FiX, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi'
+import { MdMarkEmailRead } from 'react-icons/md'
 
 export default function AuthModal() {
   const { authModalOpen, authModalTab, closeAuthModal, signIn, signUp } = useAuth()
@@ -90,7 +92,7 @@ export default function AuthModal() {
           className="absolute top-4 right-4 p-1 text-gray-400 hover:text-black transition-colors z-10"
           aria-label="Close"
         >
-          <span className="material-symbols-outlined text-xl">close</span>
+          <FiX className="text-xl" />
         </button>
 
         {/* Header */}
@@ -112,7 +114,7 @@ export default function AuthModal() {
           <div className="px-8 pt-6 pb-10">
             <div className="flex flex-col items-center text-center py-6">
               <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-5">
-                <span className="material-symbols-outlined text-3xl text-green-600">mark_email_read</span>
+                <MdMarkEmailRead className="text-3xl text-green-600" />
               </div>
               <p className="text-sm text-gray-500 leading-relaxed max-w-xs mb-6">
                 Please check <strong className="text-gray-900">{email}</strong> and click the confirmation link to activate your account.
@@ -155,7 +157,7 @@ export default function AuthModal() {
             {/* Error message */}
             {error && (
               <div className="mb-6 p-3 bg-red-50 border border-red-100 text-sm text-red-600 flex items-start gap-2">
-                <span className="material-symbols-outlined text-base mt-0.5">error</span>
+                <FiAlertCircle className="text-base mt-0.5" />
                 {error}
               </div>
             )}
@@ -231,9 +233,11 @@ export default function AuthModal() {
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   tabIndex={-1}
                 >
-                  <span className="material-symbols-outlined text-lg">
-                    {showPassword ? 'visibility_off' : 'visibility'}
-                  </span>
+                  {showPassword ? (
+                    <FiEyeOff className="text-lg" />
+                  ) : (
+                    <FiEye className="text-lg" />
+                  )}
                 </button>
               </div>
             </div>

@@ -1,3 +1,4 @@
+import { FiArrowRight, FiSearch } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
@@ -134,7 +135,7 @@ export default function Home() {
                   className="group bg-white text-black px-5 sm:px-10 py-3.5 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 sm:gap-3"
                 >
                   Shop Now
-                  <span className="material-symbols-outlined text-xs sm:text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+                  <FiArrowRight className="text-xs sm:text-sm transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   to="/about"
@@ -176,7 +177,7 @@ export default function Home() {
                 style={{ transitionDelay: `${800 + i * 150}ms` }}
               >
                 <div className="p-2 sm:p-3 bg-white/5 rounded-full group-hover:bg-white/10 transition-colors shrink-0">
-                  <span className="material-symbols-outlined text-lg sm:text-xl text-white/80">{t.icon}</span>
+                  {/* Replace {t.icon} with appropriate react-icon if possible */}
                 </div>
                 <div className="min-w-0">
                   <h4 className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.1em] sm:tracking-[0.15em] text-white mb-0.5 sm:mb-1 truncate">
@@ -206,7 +207,7 @@ export default function Home() {
               className="group flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-colors"
             >
               View All
-              <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">east</span>
+              <FiArrowRight className="text-sm transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
@@ -223,7 +224,7 @@ export default function Home() {
                 <h3 className="text-3xl md:text-4xl font-light text-white mt-1 mb-4 tracking-tight">Luxury</h3>
                 <Link to="/products" onMouseEnter={prefetchMainPages} className="inline-flex items-center gap-2 text-white text-xs font-bold uppercase tracking-[0.2em] border-b border-white/40 pb-1 hover:border-white transition-colors group/link">
                   Explore
-                  <span className="material-symbols-outlined text-sm transition-transform group-hover/link:translate-x-1">east</span>
+                  <FiArrowRight className="text-sm transition-transform group-hover/link:translate-x-1" />
                 </Link>
               </div>
             </div>
@@ -241,7 +242,7 @@ export default function Home() {
                   <h3 className="text-2xl font-light text-white mt-1 mb-3 tracking-tight">Sport</h3>
                   <Link to="/products" onMouseEnter={prefetchMainPages} className="inline-flex items-center gap-2 text-white text-xs font-bold uppercase tracking-[0.2em] border-b border-white/40 pb-1 hover:border-white transition-colors group/link">
                     Explore
-                    <span className="material-symbols-outlined text-sm transition-transform group-hover/link:translate-x-1">east</span>
+                    <FiArrowRight className="text-sm transition-transform group-hover/link:translate-x-1" />
                   </Link>
                 </div>
               </div>
@@ -256,7 +257,7 @@ export default function Home() {
                   <h3 className="text-2xl font-light text-white mt-1 mb-3 tracking-tight">Minimalist</h3>
                   <Link to="/products" onMouseEnter={prefetchMainPages} className="inline-flex items-center gap-2 text-white text-xs font-bold uppercase tracking-[0.2em] border-b border-white/40 pb-1 hover:border-white transition-colors group/link">
                     Explore
-                    <span className="material-symbols-outlined text-sm transition-transform group-hover/link:translate-x-1">east</span>
+                    <FiArrowRight className="text-sm transition-transform group-hover/link:translate-x-1" />
                   </Link>
                 </div>
               </div>
@@ -297,7 +298,7 @@ export default function Home() {
                   <div className="absolute inset-x-0 bottom-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-400">
                     <span className="flex items-center justify-center gap-2 bg-white text-black text-xs font-bold uppercase tracking-[0.15em] py-3 hover:bg-black hover:text-white transition-colors">
                       View Details
-                      <span className="material-symbols-outlined text-sm">east</span>
+                      <FiArrowRight className="text-sm" />
                     </span>
                   </div>
                 </div>
@@ -316,7 +317,7 @@ export default function Home() {
               className="group inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-black border-b-2 border-black pb-2 hover:text-gray-500 hover:border-gray-500 transition-colors"
             >
               Browse All Watches
-              <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">east</span>
+              <FiArrowRight className="text-sm transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
         </div>
@@ -378,7 +379,7 @@ export default function Home() {
                 className="group inline-flex items-center gap-2 bg-black text-white px-8 py-4 text-xs font-bold uppercase tracking-[0.15em] hover:bg-gray-800 transition-colors"
               >
                 Discover More
-                <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">east</span>
+                <FiArrowRight className="text-sm transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
