@@ -105,7 +105,7 @@ export default function ProductDetails() {
     }
   }
 
-  /* ── Loading State (UPDATED) ── */
+  /* ── Loading State ── */
   if (loading) {
     return (
       <div className="min-h-screen bg-white flex flex-col items-center justify-center">
@@ -168,7 +168,9 @@ export default function ProductDetails() {
           <div
             className={`transition-all duration-700 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           >
-            <div className="relative aspect-square lg:aspect-3/4 bg-stone-50 overflow-hidden group top-24">
+            {/* FIX: was `top-24` (applied on all screens, causing mobile overlap).
+                Now `lg:sticky lg:top-24` — sticky offset only activates on desktop. */}
+            <div className="relative aspect-square lg:aspect-3/4 bg-stone-50 overflow-hidden group lg:sticky lg:top-24">
               {/* Loading placeholder */}
               <div
                 className={`absolute inset-0 z-10 bg-stone-100 transition-opacity duration-500 ${
