@@ -115,7 +115,7 @@ export default function ProductDetails() {
           <div className="w-12 h-12 rounded-full border border-stone-100" />
           
           {/* Spinning Inner Ring (Thin & Precise) */}
-          <div className="absolute w-12 h-12 rounded-full border-[1px] border-t-black border-r-transparent border-b-transparent border-l-transparent animate-spin" />
+          <div className="absolute w-12 h-12 rounded-full border border-t-black border-r-transparent border-b-transparent border-l-transparent animate-spin" />
         </div>
         
         {/* Loading Text */}
@@ -168,7 +168,7 @@ export default function ProductDetails() {
           <div
             className={`transition-all duration-700 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           >
-            <div className="relative aspect-square lg:aspect-3/4 bg-stone-50 overflow-hidden group sticky top-24">
+            <div className="relative aspect-square lg:aspect-3/4 bg-stone-50 overflow-hidden group top-24">
               {/* Loading placeholder */}
               <div
                 className={`absolute inset-0 z-10 bg-stone-100 transition-opacity duration-500 ${

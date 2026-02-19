@@ -1,4 +1,4 @@
-import { FiArrowRight, FiSearch, FiTruck, FiShield, FiHeadphones, FiLock } from 'react-icons/fi'
+import { FiArrowRight, FiTruck, FiShield, FiHeadphones, FiLock } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
@@ -89,7 +89,7 @@ export default function Home() {
             alt="Hero Background"
             className={`w-full h-full object-cover transition-transform duration-[20s] ease-out ${heroLoaded ? 'scale-110' : 'scale-100'}`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-90" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-90" />
         </div>
 
         <div className="absolute inset-0 pt-20 flex flex-col justify-center md:justify-end pb-8 sm:pb-20 px-6 sm:px-12 md:px-20 lg:px-24 z-10 overflow-hidden pointer-events-none">
@@ -100,7 +100,7 @@ export default function Home() {
               style={{ transitionDelay: '150ms' }}
             >
               <div className="flex items-center gap-4 mb-5 md:mb-6">
-                <span className="h-[1px] w-10 md:w-12 bg-white/60"></span>
+                <span className="h-px w-10 md:w-12 bg-white/60"></span>
                 <span className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-white/90">
                   Est. 2024 • Swiss Precision
                 </span>
@@ -153,7 +153,7 @@ export default function Home() {
           style={{ transitionDelay: '1000ms' }}
         >
           <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 hidden md:block">Scroll to Explore</span>
-          <div className="h-16 w-[1px] bg-white/20 relative overflow-hidden">
+          <div className="h-16 w-px bg-white/20 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1/2 bg-white animate-slide-down" />
           </div>
         </div>
@@ -178,7 +178,7 @@ export default function Home() {
                    <t.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-white transition-colors" />
                 </div>
                 <div className="min-w-0">
-                  <h4 className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.1em] sm:tracking-[0.15em] text-white mb-0.5 sm:mb-1 truncate">
+                  <h4 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest sm:tracking-[0.15em] text-white mb-0.5 sm:mb-1 truncate">
                     {t.label}
                   </h4>
                   <p className="text-[9px] sm:text-[10px] text-gray-400 font-light tracking-wide uppercase hidden sm:block">
@@ -216,7 +216,7 @@ export default function Home() {
               style={{ transitionDelay: '200ms' }}
             >
               <img src="/images/luxury-collection.jpg" alt="Luxury" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
                 <span className="text-[10px] text-white/60 uppercase tracking-[0.3em] font-semibold">Premium</span>
                 <h3 className="text-3xl md:text-4xl font-light text-white mt-1 mb-4 tracking-tight">Luxury</h3>

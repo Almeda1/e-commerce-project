@@ -62,7 +62,7 @@ export default function Cart() {
                     </Link>
                     <button 
                       onClick={() => removeFromCart(item.id)}
-                      className="text-[10px] font-bold uppercase tracking-[0.1em] text-gray-400 hover:text-red-500 transition-colors text-left flex items-center gap-2 w-fit"
+                      className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-red-500 transition-colors text-left flex items-center gap-2 w-fit"
                     >
                       <FiTrash2 className="text-sm" />
                       Remove
