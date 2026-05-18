@@ -92,104 +92,90 @@ export default function Home() {
           <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-90" />
         </div>
 
-        <div className="absolute inset-0 pt-20 flex flex-col justify-center md:justify-end pb-8 sm:pb-20 px-6 sm:px-12 md:px-20 lg:px-24 z-10 overflow-hidden pointer-events-none">
-          <div className="max-w-4xl w-full pointer-events-auto">
+        <div className="absolute inset-0 pt-24 sm:pt-36 md:pt-48 flex flex-col justify-end pb-6 sm:pb-10 md:pb-16 px-5 sm:px-12 md:px-20 lg:px-24 z-10 overflow-y-auto overflow-x-hidden pointer-events-none">
+          <div className="max-w-7xl mx-auto w-full pointer-events-auto flex flex-col md:flex-row md:justify-between md:items-end gap-6 sm:gap-12 md:gap-10 mt-auto pb-4 md:pb-0">
             
-            <div 
-              className={`overflow-hidden transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: '150ms' }}
-            >
-              <div className="flex items-center gap-4 mb-5 md:mb-6">
-                <span className="h-px w-10 md:w-12 bg-white/60"></span>
-                <span className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-white/90">
-                  Est. 2024 • Swiss Precision
-                </span>
+            {/* Left Side: Title and Description */}
+            <div className="flex flex-col gap-4 sm:gap-8 md:w-3/5 lg:w-2/3">
+              <h1 
+                className={`text-[2.5rem] sm:text-4xl md:text-6xl lg:text-[5.5rem] font-light text-white leading-[1.1] sm:leading-[0.95] tracking-tight transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: '200ms' }}
+              >
+                The Art <br className="hidden md:block" />
+                of <span className="font-serif italic text-white/90">Horology</span> <br className="hidden md:block" />
+                Mastered
+              </h1>
+
+              <div 
+                className={`transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: '400ms' }}
+              >
+                <p className="text-gray-300 text-sm sm:text-base md:text-xl font-light leading-relaxed max-w-2xl border-l border-white/20 pl-4 sm:pl-6 md:pl-8 py-1 sm:py-2">
+                  Explore an exclusive selection of the world's finest luxury timepieces, meticulously curated for the modern connoisseur. We blend centuries of horological heritage with cutting-edge precision to bring you watches that transcend time.
+                </p>
               </div>
             </div>
 
-            <h1 
-              className={`text-5xl md:text-7xl lg:text-[6rem] font-light text-white leading-[0.9] tracking-tight mb-8 transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: '350ms' }}
-            >
-              Timeless <br className="hidden md:block" />
-              <span className="font-serif italic text-white/90">Elegance</span> & <br className="hidden md:block" />
-              Mastery
-            </h1>
-
+            {/* Right Side: High-End Curated Panel */}
             <div 
-              className={`flex flex-col md:flex-row gap-10 items-start md:items-end transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              className={`flex flex-col items-start md:items-end w-full md:w-2/5 lg:w-1/3 transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: '600ms' }}
             >
-              <p className="text-gray-300 text-base md:text-lg font-light leading-relaxed max-w-md border-l border-white/20 pl-6">
-                Discover a curated collection of the world's most prestigious timepieces. 
-                Where engineering meets art, and every second is a statement.
-              </p>
+              <div className="relative w-full sm:max-w-[340px] md:max-w-[380px] bg-white/5 backdrop-blur-md border border-white/10 p-5 sm:p-8 md:p-10 flex flex-col gap-5 sm:gap-8 shadow-2xl overflow-hidden group">
+                {/* Subtle top glow effect on hover */}
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-linear-to-r from-transparent via-white/40 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
+                
+                <div className="flex flex-col gap-2 sm:gap-3">
+                  <div className="flex items-center gap-3 sm:gap-4 mb-1 sm:mb-2">
+                    <span className="w-6 sm:w-8 h-px bg-white/40"></span>
+                    <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.4em] uppercase text-white/80">Est. 2024</span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-serif italic text-white tracking-wide">Swiss Precision</h3>
+                  <p className="text-[11px] sm:text-xs text-gray-400 font-light leading-relaxed mt-1 border-l-2 border-white/10 pl-3 sm:pl-4">
+                    Uncompromising quality. Discover masterpieces forged by heritage and innovation.
+                  </p>
+                </div>
 
-              <div className="flex flex-row gap-3 sm:gap-4">
-                {/* ⚡ METHOD 1: HOVER PREFETCH */}
-                <Link
-                  to="/products"
-                  onMouseEnter={prefetchMainPages} 
-                  className="group bg-white text-black px-5 sm:px-10 py-3.5 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 sm:gap-3"
-                >
-                  Shop Now
-                  <FiArrowRight className="text-xs sm:text-sm transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link
-                  to="/about"
-                  onMouseEnter={prefetchMainPages}
-                  className="px-5 sm:px-8 py-3.5 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-white border border-white/30 hover:bg-white/10 transition-colors backdrop-blur-sm text-center flex items-center justify-center"
-                >
-                  The Brand
-                </Link>
+                <div className="flex flex-col gap-5 sm:gap-8 mt-2 sm:mt-4">
+                  <Link
+                    to="/products"
+                    onMouseEnter={prefetchMainPages} 
+                    className="group/btn relative flex items-center gap-3 sm:gap-4 transition-opacity duration-300 hover:opacity-80"
+                  >
+                    {/* CSS Clock Icon */}
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white flex items-center justify-center relative shadow-[0_0_15px_rgba(255,255,255,0.4)] shrink-0">
+                      {/* Center Dot */}
+                      <div className="w-1 h-1 rounded-full bg-black absolute z-20"></div>
+                      {/* Minute Hand (Spins on hover) */}
+                      <div className="w-[1.5px] h-3 sm:h-3.5 bg-black absolute bottom-1/2 left-1/2 -translate-x-1/2 z-10 origin-bottom group-hover/btn:rotate-[360deg] transition-transform duration-[1.5s] ease-in-out"></div>
+                      {/* Hour Hand */}
+                      <div className="w-[1.5px] h-2 sm:h-2.5 bg-black absolute bottom-1/2 left-1/2 -translate-x-1/2 rotate-90 z-10 origin-bottom font-bold"></div>
+                    </div>
+                    
+                    <span className="text-[9px] sm:text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-white">
+                      Explore Collection
+                    </span>
+                  </Link>
+
+                  <Link
+                    to="/about"
+                    onMouseEnter={prefetchMainPages}
+                    className="group/link w-full flex items-center justify-between transition-all duration-300"
+                  >
+                    <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-white/50 group-hover/link:text-white transition-colors duration-300">
+                      The Heritage
+                    </span>
+                    <div className="flex-1 mx-4 h-[1px] bg-white/10 group-hover/link:bg-white/40 transition-colors duration-300" />
+                    <FiArrowRight className="text-xs text-white/50 group-hover/link:text-white group-hover/link:translate-x-1 transition-all duration-300" />
+                  </Link>
+                </div>
               </div>
             </div>
 
           </div>
         </div>
 
-        <div 
-          className={`absolute bottom-8 right-8 md:right-16 flex items-center gap-4 transition-opacity duration-1000 ${heroLoaded ? 'opacity-100' : 'opacity-0'}`}
-          style={{ transitionDelay: '1000ms' }}
-        >
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 hidden md:block">Scroll to Explore</span>
-          <div className="h-16 w-px bg-white/20 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1/2 bg-white animate-slide-down" />
-          </div>
-        </div>
       </section>
-
-      {/* ═══════════════════ 2. TRUST STRIP (FIXED ICONS) ═══════════════════ */}
-      <div className="bg-black text-white relative z-20 -mt-1 py-4 sm:py-5 border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
-            {[
-              { icon: FiTruck,      label: 'Global Delivery',   desc: 'Complimentary shipping' },
-              { icon: FiShield,     label: '5-Year Warranty',   desc: 'Certified authenticity' },
-              { icon: FiHeadphones, label: 'Concierge Service', desc: '24/7 expert support' },
-              { icon: FiLock,       label: 'Secure Payment',    desc: 'Encrypted transactions' },
-            ].map((t, i) => (
-              <div
-                key={i}
-                className={`group flex items-center sm:items-start gap-2.5 sm:gap-4 transition-all duration-700 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                style={{ transitionDelay: `${800 + i * 150}ms` }}
-              >
-                <div className="p-2 sm:p-3 bg-white/5 rounded-full group-hover:bg-white/10 transition-colors shrink-0">
-                   <t.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-white transition-colors" />
-                </div>
-                <div className="min-w-0">
-                  <h4 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest sm:tracking-[0.15em] text-white mb-0.5 sm:mb-1 truncate">
-                    {t.label}
-                  </h4>
-                  <p className="text-[9px] sm:text-[10px] text-gray-400 font-light tracking-wide uppercase hidden sm:block">
-                    {t.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* ═══════════════════ 3. CATEGORIES ═══════════════════ */}
       <section ref={cats.ref} className="py-24 lg:py-32 bg-white">
