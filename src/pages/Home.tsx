@@ -92,13 +92,13 @@ export default function Home() {
           <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent opacity-90" />
         </div>
 
-        <div className="absolute inset-0 pt-24 sm:pt-36 md:pt-48 flex flex-col justify-end pb-6 sm:pb-10 md:pb-16 px-5 sm:px-12 md:px-20 lg:px-24 z-10 overflow-y-auto overflow-x-hidden pointer-events-none">
-          <div className="max-w-7xl mx-auto w-full pointer-events-auto flex flex-col md:flex-row md:justify-between md:items-end gap-6 sm:gap-12 md:gap-10 mt-auto pb-4 md:pb-0">
+        <div className="absolute inset-0 pt-20 sm:pt-36 md:pt-48 flex flex-col justify-center sm:justify-end pb-4 sm:pb-10 md:pb-16 px-5 sm:px-12 md:px-20 lg:px-24 z-10 overflow-hidden pointer-events-none">
+          <div className="max-w-7xl mx-auto w-full pointer-events-auto flex flex-col md:flex-row md:justify-between md:items-end gap-5 sm:gap-12 md:gap-10 sm:mt-auto pb-2 sm:pb-0">
             
             {/* Left Side: Title and Description */}
-            <div className="flex flex-col gap-4 sm:gap-8 md:w-3/5 lg:w-2/3">
+            <div className="flex flex-col gap-3 sm:gap-8 md:w-3/5 lg:w-2/3">
               <h1 
-                className={`text-[2.5rem] sm:text-4xl md:text-6xl lg:text-[5.5rem] font-light text-white leading-[1.1] sm:leading-[0.95] tracking-tight transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                className={`text-[2.2rem] sm:text-4xl md:text-6xl lg:text-[5.5rem] font-light text-white leading-[1.1] sm:leading-[0.95] tracking-tight transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{ transitionDelay: '200ms' }}
               >
                 The Art <br className="hidden md:block" />
@@ -110,8 +110,8 @@ export default function Home() {
                 className={`transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                 style={{ transitionDelay: '400ms' }}
               >
-                <p className="text-gray-300 text-sm sm:text-base md:text-xl font-light leading-relaxed max-w-2xl border-l border-white/20 pl-4 sm:pl-6 md:pl-8 py-1 sm:py-2">
-                  Explore an exclusive selection of the world's finest luxury timepieces, meticulously curated for the modern connoisseur. We blend centuries of horological heritage with cutting-edge precision to bring you watches that transcend time.
+                <p className="text-gray-300 text-xs sm:text-base md:text-xl font-light leading-relaxed max-w-2xl border-l border-white/20 pl-3 sm:pl-6 md:pl-8 py-1 sm:py-2">
+                  Explore an exclusive selection of the world's finest luxury timepieces, meticulously curated for the modern connoisseur. 
                 </p>
               </div>
             </div>
@@ -121,7 +121,7 @@ export default function Home() {
               className={`flex flex-col items-start md:items-end w-full md:w-2/5 lg:w-1/3 transition-all duration-1000 ${heroLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: '600ms' }}
             >
-              <div className="relative w-full sm:max-w-[340px] md:max-w-[380px] bg-white/5 backdrop-blur-md border border-white/10 p-5 sm:p-8 md:p-10 flex flex-col gap-5 sm:gap-8 shadow-2xl overflow-hidden group">
+              <div className="relative w-full sm:max-w-[340px] md:max-w-[380px] bg-white/5 backdrop-blur-md border border-white/10 p-4 sm:p-8 md:p-10 flex flex-col gap-4 sm:gap-8 shadow-2xl overflow-hidden group">
                 {/* Subtle top glow effect on hover */}
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-linear-to-r from-transparent via-white/40 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
                 
