@@ -1,4 +1,4 @@
-import { FiArrowRight, FiTruck, FiShield, FiHeadphones, FiLock } from 'react-icons/fi'
+import { FiArrowRight } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { useEffect, useState, useRef } from 'react'
 import { supabase } from '../lib/supabase'
