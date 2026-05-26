@@ -35,14 +35,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     })
 
     // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
+      
+      // If the user's token is invalid or explicitly deleted, 
+      // Supabase emits SIGNED_OUT or the session resolves to null.
+      if (event === 'SIGNED_OUT' || (event === 'USER_UPDATED' && !session)) {
+        setUser(null)
+        setSession(null)
+      }
     })
 
     return () => subscription.unsubscribe()
   }, [])
+
+  // Auto-logout if a logged-in user is deleted from the dashboard
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>
+
+    if (session) {
+      interval = setInterval(async () => {
+        // Hitting getUser() validates the JWT token directly against the database
+        const { error } = await supabase.auth.getUser()
+        // Error 401/404 or "user not found" implies they were deleted or disabled
+        if (error && (error.status === 401 || error.status === 404)) {
+          supabase.auth.signOut()
+          setUser(null)
+          setSession(null)
+        }
+      }, 5000) // Poll every 5 seconds for immediate logout effect
+    }
+
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [session])
 
   const signUp = async (email: string, password: string, fullName: string) => {
     const { error } = await supabase.auth.signUp({

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { FiX, FiAlertCircle, FiEye, FiEyeOff } from 'react-icons/fi'
 import { MdMarkEmailRead } from 'react-icons/md'
+import { supabase } from '../lib/supabase'
 
 export default function AuthModal() {
   const { authModalOpen, authModalTab, closeAuthModal, signIn, signUp } = useAuth()
@@ -15,6 +16,7 @@ export default function AuthModal() {
   const [submitting, setSubmitting] = useState(false)
   const [signupSuccess, setSignupSuccess] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [resendState, setResendState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   // Sync tab when modal opens
   useEffect(() => {
@@ -27,6 +29,7 @@ export default function AuthModal() {
       setConfirmPassword('')
       setError('')
       setSignupSuccess(false)
+      setResendState('idle')
       setShowPassword(false)
     }
   }, [authModalOpen, authModalTab])
@@ -36,6 +39,25 @@ export default function AuthModal() {
     document.body.style.overflow = authModalOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [authModalOpen])
+
+  const handleResend = async () => {
+    setResendState('loading')
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email: email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/account`,
+      },
+    })
+    
+    if (error) {
+      setResendState('error')
+      setTimeout(() => setResendState('idle'), 4000)
+    } else {
+      setResendState('success')
+      setTimeout(() => setResendState('idle'), 4000)
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -131,6 +153,18 @@ export default function AuthModal() {
               >
                 Back to Sign In
               </button>
+
+              <div className="flex justify-center mb-6">
+                <button
+                  type="button"
+                  onClick={handleResend}
+                  disabled={resendState === 'loading' || resendState === 'success'}
+                  className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-black transition-colors disabled:opacity-50"
+                >
+                  {resendState === 'loading' ? 'Sending...' : resendState === 'success' ? 'Email Sent!' : resendState === 'error' ? 'Failed - Try Again' : 'Resend Email'}
+                </button>
+              </div>
+
             </div>
           </div>
         ) : (
