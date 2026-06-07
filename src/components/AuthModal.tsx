@@ -40,6 +40,32 @@ export default function AuthModal() {
     return () => { document.body.style.overflow = '' }
   }, [authModalOpen])
 
+  // Auto-login polling: detects if user clicks verification link on their phone
+  // We need to poll less aggressively to avoid getting rate-limited by Supabase
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>
+    let timeout: ReturnType<typeof setTimeout>
+
+    if (signupSuccess && email && password) {
+      interval = setInterval(async () => {
+        // Attempt to log in to see if the email has been confirmed
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+        if (!error && data.session) {
+          setSignupSuccess(false)
+          closeAuthModal() // Successfully verified! Closes modal and auto logs in
+        }
+      }, 5000) // checks every 5 seconds to reduce rate limit risk
+
+      // Stop polling after 2 minutes
+      timeout = setTimeout(() => clearInterval(interval), 120000)
+    }
+
+    return () => {
+      if (interval) clearInterval(interval)
+      if (timeout) clearTimeout(timeout)
+    }
+  }, [signupSuccess, email, password, closeAuthModal])
+
   const handleResend = async () => {
     setResendState('loading')
     const { error } = await supabase.auth.resend({
@@ -141,6 +167,12 @@ export default function AuthModal() {
               <p className="text-sm text-gray-500 leading-relaxed max-w-xs mb-6">
                 Please check <strong className="text-gray-900">{email}</strong> and click the confirmation link to activate your account.
               </p>
+              <div className="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded mb-6 max-w-xs text-left">
+                <span className="w-3.5 h-3.5 border-2 border-gray-400 border-t-black rounded-full animate-spin flex-shrink-0" />
+                <p className="text-[11px] text-gray-500 leading-relaxed m-0 uppercase tracking-widest font-bold">
+                  Waiting for verification...
+                </p>
+              </div>
               <button
                 onClick={() => {
                   setSignupSuccess(false)

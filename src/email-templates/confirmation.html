@@ -68,8 +68,13 @@
       <h1>Verify your email address</h1>
       <p>Welcome to our exclusive collection. Please confirm your email address to activate your account and start exploring the world's finest luxury timepieces.</p>
       <!-- {{ .ConfirmationURL }} is the Supabase template variable -->
-      <a href="{{ .ConfirmationURL }}" class="btn">Confirm Email</a>
-      <p style="font-size: 14px; margin-bottom: 0;">This link will expire in 24 hours.</p>
+      <!-- Added backup raw link for email clients that strip HTML buttons -->
+      <a href="{{ .ConfirmationURL }}" target="_blank" rel="noopener noreferrer" class="btn">Confirm Email</a>
+      <div style="margin-top: 20px; word-break: break-all; font-size: 12px; color: #6b7280; text-align: left; background: #f3f4f6; padding: 12px; border-radius: 4px;">
+        Or copy and paste this link into your browser:<br/>
+        <a href="{{ .ConfirmationURL }}" style="color: #4f46e5; text-decoration: underline;">{{ .ConfirmationURL }}</a>
+      </div>
+      <p style="font-size: 14px; margin-bottom: 0; margin-top: 24px;">This link will expire in 24 hours.</p>
     </div>
     <div class="footer">
       <p>&copy; 2024 Swiss Precision. All rights reserved.</p>
